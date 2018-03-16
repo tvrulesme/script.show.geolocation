@@ -2,6 +2,7 @@ import pyipinfoio
 import subprocess
 import xbmcgui
 import pydevd
+import os
 from json import load
 from urllib2 import urlopen
 
@@ -22,7 +23,7 @@ if 'Virgin' not in info:
 		CREATE_NEW_PROCESS_GROUP = 0x00000200
 		DETACHED_PROCESS = 0x00000008
 		openvpn_cmd = ['sudo', 'killall', 'openvpn']
-		p = subprocess.Popen(openvpn_cmd, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+		p = subprocess.Popen(openvpn_cmd, shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
 		print(p.pid)
 	else:
 		print 'Not going to stop VPN'
@@ -31,8 +32,8 @@ else:
 		print 'Going to start VPN'
 		CREATE_NEW_PROCESS_GROUP = 0x00000200
 		DETACHED_PROCESS = 0x00000008
-		openvpn_cmd = ['sudo', 'openvpn', '--config', 'home/john/openvpn/ipvanish-UK-London-lon-a48.conf']
-		p = subprocess.Popen(openvpn_cmd, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+		openvpn_cmd = ['nohup','sudo', 'openvpn', '--config', 'home/john/openvpn/ipvanish-UK-London-lon-a48.conf' ]
+		p = subprocess.Popen(openvpn_cmd , shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
 		print(p.pid)
 	else:
 		print 'Not going to start VPN'
