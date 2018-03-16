@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.change.resolution" name="Change Resolution" version="1.0.1" provider-name="John">
+	<requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+		<import addon="script.module.pydevd" version="4.4.0"/>
+	</requires>
+	<extension point="xbmc.python.script" library="addon.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Change resolution</summary>
+		<description lang="en">Script to change resolution from projector to TV</description>
+		<license>GNU General Public License, v2</license>
+		<language></language>
+		<forum></forum>
+		<source>https://github.com/tvrulesme/script.change.resolution.git</source>
+		<website></website>
+		<email>john.williamson.1975@gmail.com</email>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+		</assets>
+		<news>Updated to remove the debugging</news>
+	</extension>
+</addon>
