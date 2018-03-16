@@ -10,12 +10,12 @@ my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
 
 line1 = 'ORG: ' + (ip.lookup(my_ip))['org']
-print(ip.lookup(my_ip))['city']
-print(ip.lookup(my_ip))['country']
-print(ip.lookup(my_ip))['region']
-print(ip.lookup(my_ip))['hostname']
-print(ip.lookup(my_ip))['ip']
+line2 = 'CITY: ' + (ip.lookup(my_ip))['city']
+line3 = 'COUNTRY: ' +(ip.lookup(my_ip))['country']
+line4 = 'REGION: ' +(ip.lookup(my_ip))['region']
+line5 = 'HOST: ' +(ip.lookup(my_ip))['hostname']
+line6 = 'IP: ' +(ip.lookup(my_ip))['ip']
 
 
-xbmcgui.Dialog().ok('Current Geolocation Info', line1)
+xbmcgui.Dialog().ok('Current Geolocation Info', line1, line2, line3, line4, line5, line6)
 
