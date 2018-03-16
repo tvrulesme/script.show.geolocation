@@ -17,13 +17,23 @@ info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION:
 
 dialog = xbmcgui.Dialog()
 if 'Virgin' not in info: 
+	if dialog.yesno('VPN connected', info,'Stop VPN?'):
+		print 'Going to stop VPN'
+		CREATE_NEW_PROCESS_GROUP = 0x00000200
+		DETACHED_PROCESS = 0x00000008
+		openvpn_cmd = ['sudo', 'killall', 'openvpn']
+		p = subprocess.Popen(openvpn_cmd, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+		print(p.pid)
+	else:
+		print 'Not going to stop VPN'
+else:	
 	if dialog.yesno('VPN not connected', info,'Start VPN?'):
 		print 'Going to start VPN'
-	else:
-		print 'Not going to start VPN'
-else:	
-	if dialog.yesno('VPN connected', info,'Stop VPN?'):
-		print 'Going to start VPN'
+		CREATE_NEW_PROCESS_GROUP = 0x00000200
+		DETACHED_PROCESS = 0x00000008
+		openvpn_cmd = ['sudo', 'openvpn', '--config', 'home/john/openvpn/ipvanish-UK-London-lon-a48.conf']
+		p = subprocess.Popen(openvpn_cmd, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+		print(p.pid)
 	else:
 		print 'Not going to start VPN'
 
