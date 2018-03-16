@@ -13,14 +13,23 @@ lookup = ip.lookup(my_ip)
 
 info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
-print('Current Geolocation Info', info)
-
+#print('Current Geolocation Info', info)
 
 dialog = xbmcgui.Dialog()
-if dialog.yesno('Current Geolocation Info', info,'Start VPN?'):
-	print 'Going to start VPN'
-else:
-	print 'Not going to start VPN'
+if 'Virgin' not in info: 
+	if dialog.yesno('VPN not connected', info,'Start VPN?'):
+		print 'Going to start VPN'
+	else:
+		print 'Not going to start VPN'
+else:	
+	if dialog.yesno('VPN connected', info,'Stop VPN?'):
+		print 'Going to start VPN'
+	else:
+		print 'Not going to start VPN'
+
+
+
+
 
 
 #openvpn_cmd = ['sudo', 'openvpn', '--config', 'client.cfg', '--auth-user-pass', 'hmaauth.conf']
