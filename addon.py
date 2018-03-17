@@ -33,6 +33,9 @@ else:
 		CREATE_NEW_PROCESS_GROUP = 0x00000200
 		DETACHED_PROCESS = 0x00000008
 		#openvpn_cmd = ['nohup','sudo', 'openvpn', '--config', 'home/john/openvpn/ipvanish-UK-London-lon-a48.conf' ]
+		
+		#why isn't this starting openvpn?
+
 		p = subprocess.Popen('sudo openvpn --config /home/john/openvpn/ipvanish-UK-London-lon-a48.conf', shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
 		
 		
