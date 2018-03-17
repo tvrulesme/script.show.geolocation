@@ -1,10 +1,11 @@
 import pyipinfoio
-import subprocess
+#import subprocess
 import xbmcgui
 import pydevd
-import os
+#import os
 from json import load
 from urllib2 import urlopen
+import xbmc
 
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
@@ -20,27 +21,13 @@ dialog = xbmcgui.Dialog()
 if 'Virgin' not in info: 
 	if dialog.yesno('VPN connected', info,'Stop VPN?'):
 		print 'Going to stop VPN'
-		CREATE_NEW_PROCESS_GROUP = 0x00000200
-		DETACHED_PROCESS = 0x00000008
-		openvpn_cmd = ['sudo', 'killall', 'openvpn']
-		p = subprocess.Popen('sudo killall openvpn', shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
-		print(p.pid)
+		xbmc.executebuiltin('XBMC.RunScript(script.openvpn,disconnect)')
 	else:
 		print 'Not going to stop VPN'
 else:	
 	if dialog.yesno('VPN not connected', info,'Start VPN?'):
 		print 'Going to start VPN'
-		CREATE_NEW_PROCESS_GROUP = 0x00000200
-		DETACHED_PROCESS = 0x00000008
-		#openvpn_cmd = ['nohup','sudo', 'openvpn', '--config', 'home/john/openvpn/ipvanish-UK-London-lon-a48.conf' ]
-		
-		#why isn't this starting openvpn?
-
-		p = subprocess.Popen('sudo openvpn --config /home/john/openvpn/ipvanish-UK-London-lon-a48.conf', shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
-		
-		
-		#p = subprocess.Popen(openvpn_cmd , shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
-		print(p.pid)
+		xbmc.executebuiltin('XBMC.RunScript(script.openvpn,ipvanish)')
 	else:
 		print 'Not going to start VPN'
 
