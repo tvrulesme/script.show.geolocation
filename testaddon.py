@@ -25,5 +25,6 @@ else:
 	DETACHED_PROCESS = 0x00000008
 	openvpn_cmd = ['sudo', 'killall', 'openvpn']
 	p = subprocess.Popen('sudo killall openvpn', shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
+	print(p.pid)
 
 
