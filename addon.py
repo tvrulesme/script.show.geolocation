@@ -6,6 +6,7 @@ import pydevd
 from json import load
 from urllib2 import urlopen
 import xbmc
+import subprocess
 
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
@@ -29,11 +30,18 @@ else:
 		print 'Going to start VPN'
 		#passDialog = xbmcgui.Dialog.input('Enter secret code', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
 		passDialog = xbmcgui.Dialog()
-		d = passDialog.input('Enter secret code', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+		password = passDialog.input('Enter secret code', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
 		
 		
 		#d = passDialog.input('Enter secret code', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-		print(d)
+		print(password)
+		
+		process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+
+		sudo_prompt = process.communicate(password + '\n')[1]
+		
+		
+		
 		#sudo nmcli con down id ipvanish-UK-London-lon-a48
 		
 		#RunScript(script.openvpn, disconnect)
