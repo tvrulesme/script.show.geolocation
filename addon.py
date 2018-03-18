@@ -1,11 +1,11 @@
 import pyipinfoio
 #import subprocess
 import xbmcgui
-import pydevd
+#import pydevd
 #import os
 from json import load
 from urllib2 import urlopen
-import xbmc
+#import xbmc
 import subprocess
 
 
@@ -17,7 +17,7 @@ def startStopVpn(updown):
 	process.communicate(password + '\n')[1]
 
 
-pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
@@ -38,23 +38,8 @@ else:
 	if dialog.yesno('VPN not connected', info,'Start VPN?'):
 		print 'Going to start VPN'
 		startStopVpn('up')
-		#passDialog = xbmcgui.Dialog()
-		#password = passDialog.input('Enter sudo Password', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-
-		#process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		#sudo_prompt = process.communicate(password + '\n')[1]
 	else:
 		print 'Not going to start VPN'
 
 
 print 'done'
-
-
-
-#openvpn_cmd = ['sudo', 'openvpn', '--config', 'client.cfg', '--auth-user-pass', 'hmaauth.conf']
-#prog = subprocess.Popen(openvpn_cmd)
-
-#prog.
-
-#xbmcgui.Dialog().ok('Current Geolocation Info', 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname'])
-
