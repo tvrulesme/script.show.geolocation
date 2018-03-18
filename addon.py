@@ -36,7 +36,8 @@ if 'Virgin' not in info:
 else:	
 	passDialog = xbmcgui.Dialog()
 	password = passDialog.input('Connected to [COLOR red]' + info + '[/COLOR], enter sudo password to connect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-	if password.str():
+	print('#' + password + '#')
+	if password:
 		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate(password + '\n')[1]
 
