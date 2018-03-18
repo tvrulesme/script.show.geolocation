@@ -1,12 +1,9 @@
 import pyipinfoio
-#import subprocess
 import xbmcgui
-#import pydevd
-#import os
 from json import load
 from urllib2 import urlopen
-#import xbmc
 import subprocess
+#import pydevd
 
 
 def startStopVpn(updown):
