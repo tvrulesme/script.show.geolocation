@@ -29,13 +29,13 @@ print('Current Geolocation Info', info)
 
 dialog = xbmcgui.Dialog()
 if 'Virgin' not in info: 
-	if dialog.yesno('VPN connected', info,'Stop VPN?'):
+	if dialog.yesno('VPN connected - Stop VPN?', info):
 		print 'Going to stop VPN'
 		startStopVpn('down')
 	else:
 		print 'Not going to stop VPN'
 else:	
-	if dialog.yesno('VPN not connected', info,'Start VPN?'):
+	if dialog.yesno('VPN not connected - Start VPN?', info):
 		print 'Going to start VPN'
 		startStopVpn('up')
 	else:
