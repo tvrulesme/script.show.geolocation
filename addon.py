@@ -3,7 +3,7 @@ import xbmcgui
 from json import load
 from urllib2 import urlopen
 import subprocess
-import pydevd
+#import pydevd
 
 
 def startStopVpn(updown):
@@ -14,7 +14,7 @@ def startStopVpn(updown):
 	process.communicate(password + '\n')[1]
 
 
-pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
