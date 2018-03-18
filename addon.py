@@ -3,7 +3,7 @@ import xbmcgui
 from json import load
 from urllib2 import urlopen
 import subprocess
-import pydevd
+#import pydevd
 
 
 def startStopVpn(updown):
