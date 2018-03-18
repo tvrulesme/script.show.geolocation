@@ -3,18 +3,9 @@ import xbmcgui
 from json import load
 from urllib2 import urlopen
 import subprocess
-import pydevd
+#import pydevd
 
-
-def startStopVpn(updown):
-	passDialog = xbmcgui.Dialog()
-	password = passDialog.input('Enter sudo Password', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-
-	process = subprocess.Popen('sudo -S nmcli con ' + updown + ' id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-	process.communicate(password + '\n')[1]
-
-
-pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
