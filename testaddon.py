@@ -2,35 +2,30 @@ import pyipinfoio
 import subprocess
 #import xbmcgui
 import pydevd
-
-
 import os
-from json import load
-from urllib2 import urlopen
-
 
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
-my_ip = load(urlopen('http://jsonip.com'))['ip']
-ip = pyipinfoio.IPLookup()
-lookup = ip.lookup(my_ip)
 
 
+openvpn = '/usr/sbin/openvpn'
+workdir = os.path.dirname('/home/john/openvpn')
+ip = '127.0.0.1'
+port = 1337
+ovpnconfig = 'ipvanish-UK-London-lon-a65.ovpn'
+sudopwd = 'Penguin1'
 
-info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
-#print('Current Geolocation Info', info)
-print(info)
+#'sudo -S openvpn --daemon --management 127.0.0.1 1337 --config ~/openvpn/ipvanish-UK-London-lon-a65.ovpn'
 
-if 'Virgin' in info: 
-	
-	p = subprocess.Popen('sudo openvpn --config /home/john/openvpn/ipvanish-UK-London-lon-a48.conf', shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
-	print(p.pid)
-	#with open(tempfile0, "w") as text_file:
-	#tempfile0.write(p.pid)
-else:
-	p = subprocess.Popen('sudo kill -9 ' , shell=True, stdout=None, stderr=None, preexec_fn=os.setpgrp)
-	print(p.pid)
-	#os.remove(tempfile0)
+#cmdline = '\'%s\' --cd \'%s\' --daemon --management %s %d --config \'%s\' ' % (
+#            openvpn, workdir, ip, port, ovpnconfig)
 
+#cmdline = 'echo \'%s\' | sudo -S %s' % (sudopwd, cmdline)
+process = subprocess.Popen('sudo -S openvpn --daemon --management 127.0.0.1 1337 --config ~/openvpn/ipvanish-UK-London-lon-a65.ovpn', cwd=workdir, shell=True,
+                                        stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+
+sudo_prompt = process.communicate('Penguin1' + '\n')[1]
+
+print (process.pid)
 

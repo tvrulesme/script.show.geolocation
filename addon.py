@@ -27,12 +27,18 @@ if 'Virgin' not in info:
 else:	
 	if dialog.yesno('VPN not connected', info,'Start VPN?'):
 		print 'Going to start VPN'
+		passDialog = xbmcgui.Dialog.input()
+		d = passDialog.input('Enter secret code', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+		print(d)
+		#sudo nmcli con down id ipvanish-UK-London-lon-a48
+		
+		#RunScript(script.openvpn, disconnect)
 		xbmc.executebuiltin('XBMC.RunScript(script.openvpn,ipvanish)')
 	else:
 		print 'Not going to start VPN'
 
 
-
+print 'done'
 
 
 
