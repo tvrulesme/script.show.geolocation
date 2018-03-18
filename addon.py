@@ -3,7 +3,7 @@ import xbmcgui
 from json import load
 from urllib2 import urlopen
 import subprocess
-#import pydevd
+import pydevd
 
 
 def startStopVpn(updown):
@@ -14,7 +14,7 @@ def startStopVpn(updown):
 	process.communicate(password + '\n')[1]
 
 
-#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
@@ -30,7 +30,7 @@ if 'Virgin' not in info:
 	passDialog = xbmcgui.Dialog()
 	password = passDialog.input('Connected to [COLOR forestgreen]' + info + '[/COLOR], enter sudo password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
 	if password:
-		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True)
+		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate(password + '\n')[1]
 
 else:	
@@ -38,7 +38,7 @@ else:
 	password = passDialog.input('Connected to [COLOR red]' + info + '[/COLOR], enter sudo password to connect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
 	#print('#' + password + '#')
 	if password:
-		process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True)
+		process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate(password + '\n')[1]
 
 
