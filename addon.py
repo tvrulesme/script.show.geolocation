@@ -21,6 +21,21 @@ def getVpnList():
 			else:
 				vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
 			vpnlist.append(splitLine[0])
+			
+def showVpnInfo():
+	iconpath = xbmcaddon.Addon().getAddonInfo('path').decode("utf-8") + "/icon.png"
+	my_ip = load(urlopen('http://jsonip.com'))['ip']
+	ip = pyipinfoio.IPLookup()
+	lookup = ip.lookup(my_ip)
+	message = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
+	xbmc.executebuiltin('Notification(Title,' + message + ',5000,' + iconpath+ ')')
+# info = lookup['org'] 
+# print('Current Geolocation Info', info)
+
+showVpnInfo()
+
+showVpnInfo()
+	
 
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
@@ -28,31 +43,24 @@ vpnlistdisplay = []
 vpnlist = [] 
 
 # Set some global values.
-_addonid = 'script.show.geolocation'
+#_addonid = 'script.show.geolocation'
 
 #image = _settings.get_path('icon.png')
 
 #xbmc.translatePath('%s/%s' % (self.__path__, path))
 
 
-addon= xbmcaddon.Addon()
-path = addon.getAddonInfo('path').decode("utf-8") + "/icon.png"
+
 
 #icon=os.path.join(addon.getAddonInfo('path'), 'resources','skins','Default','media', icon)
 
 
-xbmc.executebuiltin('Notification(Title,A notification message,5000,' + path+ ')')	
+	
 
 
 
 
-# my_ip = load(urlopen('http://jsonip.com'))['ip']
-# ip = pyipinfoio.IPLookup()
-# lookup = ip.lookup(my_ip)
-# info = lookup['org'] 
-# print('Current Geolocation Info', info)
 
-#info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
 
 getVpnList()
