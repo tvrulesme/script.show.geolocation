@@ -4,6 +4,7 @@ from json import load
 from urllib2 import urlopen
 import subprocess
 import pydevd
+import os
 
 def getVpnList():
 	p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -11,7 +12,7 @@ def getVpnList():
 	for line in outputText.split('\n'):
 		splitLine = line.split()
 		if(splitLine and splitLine[2] == 'vpn'):
-			if(splitLine[2] != '--'):
+			if(splitLine[3] != '--'):
 				vpnlistdisplay.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR] - Connected')
 			else:
 				vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
@@ -51,7 +52,7 @@ if selectedVpn >= 0:
 		updown = 'down' if connected else 'up'
 		print ( 'sudo -S nmcli con ' + updown +' id ' + vpnlist[selectedVpn] )
 		process = subprocess.Popen('sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		process.communicate(password + '\n')[1]
+		process.communicate(password + os.linesep())[1]
 	
 
 	
