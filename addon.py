@@ -27,10 +27,10 @@ def showVpnInfo():
 	my_ip = load(urlopen('http://jsonip.com'))['ip']
 	ip = pyipinfoio.IPLookup()
 	lookup = ip.lookup(my_ip)
-	message = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
-	xbmc.executebuiltin('Notification(Title,' + message + ',5000,' + iconpath+ ')')
-# info = lookup['org'] 
-# print('Current Geolocation Info', info)
+	#message = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
+	message =  lookup['org']
+	connected = 'Connected to VPN' if 'Virgin' not in message else 'Disconnected from VPN'
+	xbmc.executebuiltin('Notification(' + connected + ',' + message + ',5000,' + iconpath+ ')')
 
 
 	
