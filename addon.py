@@ -10,11 +10,21 @@ import subprocess
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
 lookup = ip.lookup(my_ip)
+info = lookup['org'] 
+print('Current Geolocation Info', info)
 
 #info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
-info = lookup['org'] 
 
-print('Current Geolocation Info', info)
+vpnlist = [] 
+
+p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+outputText =  p.communicate()[0]
+for line in outputText.split('\n'):
+	splitLine = line.split()
+	if(splitLine and splitLine[2] == 'vpn'):
+		vpnlist.append(splitLine[0])
+
+print vpnlist
 
 dialog = xbmcgui.Dialog()
 if 'Virgin' not in info: 
@@ -23,6 +33,8 @@ if 'Virgin' not in info:
 	if password:
 		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate(password + '\n')[1]
+		
+		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 
 else:	
 	passDialog = xbmcgui.Dialog()
