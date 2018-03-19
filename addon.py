@@ -22,12 +22,12 @@ outputText =  p.communicate()[0]
 for line in outputText.split('\n'):
 	splitLine = line.split()
 	if(splitLine and splitLine[2] == 'vpn'):
-		vpnlist.append(splitLine[0])
+		vpnlist.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR]')
 
 print vpnlist
 
 dialog = xbmcgui.Dialog()
-selectedVpn = dialog.select('Select vpn')
+selectedVpn = dialog.select('Select vpn',vpnlist)
 
 print selectedVpn
 
