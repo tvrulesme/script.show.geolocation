@@ -15,6 +15,7 @@ print('Current Geolocation Info', info)
 
 #info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
+vpnlistdisplay = [] 
 vpnlist = [] 
 
 p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -22,14 +23,18 @@ outputText =  p.communicate()[0]
 for line in outputText.split('\n'):
 	splitLine = line.split()
 	if(splitLine and splitLine[2] == 'vpn'):
-		vpnlist.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR]')
+		if(splitLine[2] == '--'):
+			vpnlistdisplay.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR] - Connected')
+		else:
+			vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
+		vpnlist.append(splitLine[0])
 
 print vpnlist
 
 dialog = xbmcgui.Dialog()
-selectedVpn = dialog.select('Select vpn',vpnlist)
+selectedVpn = dialog.select('Select vpn',vpnlistdisplay)
 
-print selectedVpn
+print vpnlist[selectedVpn]
 
 
 if 'Virgin' not in info: 
