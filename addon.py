@@ -7,8 +7,8 @@ from urllib2 import urlopen
 import subprocess
 import pydevd
 import os
-import resources.lib.kodisettings as settings
-import sys
+#import resources.lib.kodisettings as settings
+#import sys
 
 def getVpnList():
 	p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
