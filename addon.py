@@ -51,9 +51,8 @@ if selectedVpn >= 0:
 	if password:
 		updown = 'down' if connected else 'up'
 		print ( 'sudo -S nmcli con ' + updown +' id ' + vpnlist[selectedVpn] )
-		process = subprocess.Popen('sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		sep = os.linesep()
-		process.communicate(password + sep)[1]
+		process = subprocess.Popen('sudo -S nmcli con ' + updown +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+		process.communicate(password + os.linesep)[1]
 	
 
 	
