@@ -29,6 +29,7 @@ def showVpnInfo():
 	lookup = ip.lookup(my_ip)
 	#message = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 	org = lookup['org']
+	print(lookup)
 	message = '[COLOR forestgreen]' + org + '[/COLOR]' if 'Virgin' not in org else '[COLOR red]' + org + '[/COLOR]'
 	connected = 'Connected to VPN' if 'Virgin' not in message else 'Disconnected from VPN'
 	xbmc.executebuiltin('Notification(' + connected + ',' + message + ',5000,' + iconpath+ ')')
