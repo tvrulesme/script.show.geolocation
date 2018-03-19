@@ -36,31 +36,45 @@ print('Current Geolocation Info', info)
 
 getVpnList()
 
-print vpnlist
+#print vpnlist
 
 dialog = xbmcgui.Dialog()
 selectedVpn = dialog.select('Select vpn',vpnlistdisplay)
 
 print selectedVpn
+if selectedVpn >= 0:
+	password = ''
+	connected = True if 'forestgreen' in vpnlistdisplay[selectedVpn] else False
+	password = xbmcgui.Dialog().input('Enter password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+	
+	if password:
+		print ( 'sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] )
+		process = subprocess.Popen('sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+		process.communicate(password + '\n')[1]
+	
+
+	
+
+
 print vpnlist[selectedVpn]
 
 
-if 'Virgin' not in info: 
-	passDialog = xbmcgui.Dialog()
-	password = passDialog.input('[COLOR forestgreen]' + info + '[/COLOR] enter password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-	if password:
-		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		process.communicate(password + '\n')[1]
-		
-		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-
-else:	
-	passDialog = xbmcgui.Dialog()
-	password = passDialog.input('[COLOR red]' + info + '[/COLOR] enter password to connect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
-	#print('#' + password + '#')
-	if password:
-		process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		process.communicate(password + '\n')[1]
+# if 'Virgin' not in info: 
+# 	passDialog = xbmcgui.Dialog()
+# 	password = passDialog.input('[COLOR forestgreen]' + info + '[/COLOR] enter password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+# 	if password:
+# 		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+# 		process.communicate(password + '\n')[1]
+# 		
+# 		process = subprocess.Popen('sudo -S nmcli con down id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+# 
+# else:	
+# 	passDialog = xbmcgui.Dialog()
+# 	password = passDialog.input('[COLOR red]' + info + '[/COLOR] enter password to connect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+# 	#print('#' + password + '#')
+# 	if password:
+# 		process = subprocess.Popen('sudo -S nmcli con up id ipvanish-UK-London-lon-a48', shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+# 		process.communicate(password + '\n')[1]
 
 
 print 'done'
