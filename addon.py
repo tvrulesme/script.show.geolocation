@@ -27,6 +27,11 @@ for line in outputText.split('\n'):
 print vpnlist
 
 dialog = xbmcgui.Dialog()
+selectedVpn = dialog.select('Select vpn')
+
+print selectedVpn
+
+
 if 'Virgin' not in info: 
 	passDialog = xbmcgui.Dialog()
 	password = passDialog.input('[COLOR forestgreen]' + info + '[/COLOR] enter password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
