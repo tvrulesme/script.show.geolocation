@@ -6,6 +6,8 @@ from urllib2 import urlopen
 import subprocess
 import pydevd
 import os
+import resources.lib.kodisettings as settings
+import sys
 
 def getVpnList():
 	p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -19,10 +21,16 @@ def getVpnList():
 				vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
 			vpnlist.append(splitLine[0])
 
-#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 vpnlistdisplay = [] 
 vpnlist = [] 
+
+# Set some global values.
+_addonid = 'script.show.geolocation'
+
+# Initialise settings.
+_settings = settings.KodiSettings(_addonid, sys.argv)
 
 
 
@@ -55,7 +63,10 @@ if selectedVpn >= 0:
 		process.communicate(password + os.linesep)[1]
 	
 
-xbmc.executebuiltin("Notification(Title,A notification message)")	
+image = _settings.get_path('icon.png')
+
+
+xbmc.executebuiltin('Notification(Title,A notification message,5000,' + image + ')')	
 
 
 #print vpnlist[selectedVpn]
