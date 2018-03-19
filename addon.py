@@ -5,7 +5,25 @@ from urllib2 import urlopen
 import subprocess
 import pydevd
 
+def getVpnList():
+	p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+	outputText =  p.communicate()[0]
+	for line in outputText.split('\n'):
+		splitLine = line.split()
+		if(splitLine and splitLine[2] == 'vpn'):
+			if(splitLine[2] != '--'):
+				vpnlistdisplay.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR] - Connected')
+			else:
+				vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
+			vpnlist.append(splitLine[0])
+
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+
+vpnlistdisplay = [] 
+vpnlist = [] 
+
+
+
 
 my_ip = load(urlopen('http://jsonip.com'))['ip']
 ip = pyipinfoio.IPLookup()
@@ -15,19 +33,8 @@ print('Current Geolocation Info', info)
 
 #info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
-vpnlistdisplay = [] 
-vpnlist = [] 
 
-p = subprocess.Popen(["nmcli","con"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-outputText =  p.communicate()[0]
-for line in outputText.split('\n'):
-	splitLine = line.split()
-	if(splitLine and splitLine[2] == 'vpn'):
-		if(splitLine[2] == '--'):
-			vpnlistdisplay.append('[COLOR forestgreen]' + splitLine[0] + '[/COLOR] - Connected')
-		else:
-			vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
-		vpnlist.append(splitLine[0])
+getVpnList()
 
 print vpnlist
 
