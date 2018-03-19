@@ -26,11 +26,11 @@ vpnlist = []
 
 
 
-my_ip = load(urlopen('http://jsonip.com'))['ip']
-ip = pyipinfoio.IPLookup()
-lookup = ip.lookup(my_ip)
-info = lookup['org'] 
-print('Current Geolocation Info', info)
+# my_ip = load(urlopen('http://jsonip.com'))['ip']
+# ip = pyipinfoio.IPLookup()
+# lookup = ip.lookup(my_ip)
+# info = lookup['org'] 
+# print('Current Geolocation Info', info)
 
 #info = 'ORG: ' + lookup['org'] +'\n'+ 'CITY: ' + lookup['city']+'\n'+   'REGION: ' +lookup['region']+'\n'+  'HOST: ' +lookup['hostname']
 
@@ -52,7 +52,8 @@ if selectedVpn >= 0:
 		updown = 'down' if connected else 'up'
 		print ( 'sudo -S nmcli con ' + updown +' id ' + vpnlist[selectedVpn] )
 		process = subprocess.Popen('sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		process.communicate(password + os.linesep())[1]
+		sep = os.linesep()
+		process.communicate(password + sep)[1]
 	
 
 	
