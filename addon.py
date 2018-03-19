@@ -48,7 +48,8 @@ if selectedVpn >= 0:
 	password = xbmcgui.Dialog().input('Enter password to disconnect VPN', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
 	
 	if password:
-		print ( 'sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] )
+		updown = 'down' if connected else 'up'
+		print ( 'sudo -S nmcli con ' + updown +' id ' + vpnlist[selectedVpn] )
 		process = subprocess.Popen('sudo -S nmcli con ' + 'down' if connected else 'up' +' id ' + vpnlist[selectedVpn] , shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate(password + '\n')[1]
 	
