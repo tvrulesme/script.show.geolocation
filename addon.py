@@ -1,6 +1,7 @@
 import pyipinfoio
 import xbmcgui
 import xbmc
+import xbmcaddon
 from json import load
 from urllib2 import urlopen
 import subprocess
@@ -29,8 +30,19 @@ vpnlist = []
 # Set some global values.
 _addonid = 'script.show.geolocation'
 
-# Initialise settings.
-_settings = settings.KodiSettings(_addonid, sys.argv)
+#image = _settings.get_path('icon.png')
+
+#xbmc.translatePath('%s/%s' % (self.__path__, path))
+
+
+__addon__       = xbmcaddon.Addon(id=_addonid)
+
+print __addon__ 
+
+#icon=os.path.join(addon.getAddonInfo('path'), 'resources','skins','Default','media', icon)
+
+
+xbmc.executebuiltin('Notification(Title,A notification message,5000,' + __addon__ + ')')	
 
 
 
@@ -63,10 +75,7 @@ if selectedVpn >= 0:
 		process.communicate(password + os.linesep)[1]
 	
 
-image = _settings.get_path('icon.png')
 
-
-xbmc.executebuiltin('Notification(Title,A notification message,5000,' + image + ')')	
 
 
 #print vpnlist[selectedVpn]
