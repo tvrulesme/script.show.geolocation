@@ -32,15 +32,17 @@ def showVpnInfo():
 # info = lookup['org'] 
 # print('Current Geolocation Info', info)
 
-showVpnInfo()
 
-showVpnInfo()
 	
 
 pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 vpnlistdisplay = [] 
 vpnlist = [] 
+
+showVpnInfo()
+
+showVpnInfo()
 
 # Set some global values.
 #_addonid = 'script.show.geolocation'
