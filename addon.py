@@ -1,5 +1,6 @@
 import pyipinfoio
 import xbmcgui
+import xbmc
 from json import load
 from urllib2 import urlopen
 import subprocess
@@ -18,7 +19,7 @@ def getVpnList():
 				vpnlistdisplay.append('[COLOR red]' + splitLine[0] + '[/COLOR] - Disconnected')
 			vpnlist.append(splitLine[0])
 
-pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 vpnlistdisplay = [] 
 vpnlist = [] 
@@ -42,7 +43,6 @@ getVpnList()
 dialog = xbmcgui.Dialog()
 selectedVpn = dialog.select('Select vpn',vpnlistdisplay)
 
-print selectedVpn
 if selectedVpn >= 0:
 	password = ''
 	connected = True if 'forestgreen' in vpnlistdisplay[selectedVpn] else False
@@ -55,10 +55,10 @@ if selectedVpn >= 0:
 		process.communicate(password + os.linesep)[1]
 	
 
-	
+xbmc.executebuiltin("Notification(Title,A notification message)")	
 
 
-print vpnlist[selectedVpn]
+#print vpnlist[selectedVpn]
 
 
 # if 'Virgin' not in info: 
