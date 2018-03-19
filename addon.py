@@ -35,14 +35,13 @@ _addonid = 'script.show.geolocation'
 #xbmc.translatePath('%s/%s' % (self.__path__, path))
 
 
-__addon__       = xbmcaddon.Addon(id=_addonid)
-
-print __addon__ 
+addon= xbmcaddon.Addon()
+path = addon.getAddonInfo('path').decode("utf-8") + "/icon.png"
 
 #icon=os.path.join(addon.getAddonInfo('path'), 'resources','skins','Default','media', icon)
 
 
-xbmc.executebuiltin('Notification(Title,A notification message,5000,' + __addon__ + ')')	
+xbmc.executebuiltin('Notification(Title,A notification message,5000,' + path+ ')')	
 
 
 
