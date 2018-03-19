@@ -41,6 +41,7 @@ print vpnlist
 dialog = xbmcgui.Dialog()
 selectedVpn = dialog.select('Select vpn',vpnlistdisplay)
 
+print selectedVpn
 print vpnlist[selectedVpn]
 
 
