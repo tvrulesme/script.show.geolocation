@@ -5,8 +5,10 @@ import xbmcaddon
 from json import load
 from urllib2 import urlopen
 import subprocess
-#import pydevd
+from pydev import pydevd
 import os
+
+
 
 green = '[COLOR forestgreen]'
 red = '[COLOR red]'
@@ -41,7 +43,7 @@ def showVpnInfo(connected):
 	header = 'Connected to VPN' if connected else 'Disconnected from VPN'
 	xbmc.executebuiltin('Notification(' + header + ',' + message + ',5000,' + iconpath+ ')')
 
-#pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
+pydevd.settrace('192.168.0.55', stdoutToServer=True, stderrToServer=True)
 
 vpnlistdisplay = [] 
 vpnlist = [] 
