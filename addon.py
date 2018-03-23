@@ -7,6 +7,8 @@ from urllib2 import urlopen
 import subprocess
 from pydev import pydevd
 import os
+import sys
+print(sys.version)
 
 
 
